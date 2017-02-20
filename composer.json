@@ -1,0 +1,12 @@
+{
+    "name": "swiftmade/blogdown",
+    "description": "Simple Laravel blog package using markdown",
+    "authors": [
+        {
+            "name": "Ahmet Ozisik",
+            "email": "ozisikahmet@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
