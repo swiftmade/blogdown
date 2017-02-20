@@ -24,10 +24,7 @@ If you want to change the default blog folder (*defaults to resources/views/blog
 
 ### Use
 
-The package parses your markdown in two steps:
-
-1. It parses the meta tags at the beginning
-2. It renders the markdown into html
+#### a. Format
 
 Here is a sample blog article:
 
@@ -38,6 +35,7 @@ Here is a sample blog article:
 	keywords: any keywords, you want to add, here
 	description: you can add any tag you want
 	date: 19.02.2017
+	custom: hey! I can access this like $blog->meta->custom
 	*/
 	
 	# Title of My Article
@@ -48,7 +46,16 @@ Here is a sample blog article:
 	
 	* It's awesome
 	* It just works!
-	
+
+#### b. Building
+
+You need to put your markdown files (with .md extension) inside the blog folder (see install notes for configuration). Afterwards, you need to run the following artisan command:
+
+	php artisan blog:build
+
+This command is necessary when you add a new article or when you want to flush the entire cache and rebuild it. Blogdown automatically detects a modification to an existing article, so no need to run this when you modify your articles.
+
+#### c. Retrieving Articles
 
 The only meta tag required by Blogdown is *slug*. The package uses this tag as a unique identifier across all your markdown files. While retrieving your blog article, you pass in this slug like this:
 
