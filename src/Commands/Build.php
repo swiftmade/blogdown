@@ -2,8 +2,6 @@
 
 namespace Swiftmade\Blogdown\Commands;
 
-use Michelf\Markdown;
-use Michelf\MarkdownExtra;
 use Swiftmade\Blogdown\Parser;
 use Illuminate\Console\Command;
 use Swiftmade\Blogdown\Repository;
@@ -33,8 +31,9 @@ class Build extends Command
                 return pathinfo($file, 'PATHINFO_EXTENSION') === 'md';
             })
             ->each(function ($path) {
-                $meta = $this->repository->store($path);
-                $this->info('Cached /' . $meta->slug);
+                $blog = Parser::parse($path);
+                $this->repository->put($blog);
+                $this->info('Cached /' . $blog->meta->slug);
             });
     }
 }

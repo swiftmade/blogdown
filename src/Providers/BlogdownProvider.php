@@ -2,10 +2,9 @@
 
 namespace Swiftmade\Blogdown\Providers;
 
-use Swiftmade\Blogdown\Commands\Build;
-use Swiftmade\Blogdown\Engine;
-use Swiftmade\Blogdown\Facades\Blogdown as Facade;
 use Swiftmade\Blogdown\Presenter;
+use Swiftmade\Blogdown\Commands\Build;
+use Swiftmade\Blogdown\Facades\Blogdown as Facade;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class BlogdownProvider extends LaravelServiceProvider

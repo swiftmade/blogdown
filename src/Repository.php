@@ -11,36 +11,19 @@ class Repository
         return Cache::get('blogdown.meta', collect([]));
     }
 
-    public function get($slug)
+    public function get($slug, $default = null)
     {
         $all = $this->all();
         if (!$all->has($slug)) {
-            return null;
+            return $default;
         }
-        $meta = $all->get($slug);
-        if (!$this->validate($meta)) {
-            return $this->store($meta->path);
-        }
-        return $meta;
+        return $all->get($slug);
     }
 
-    private function validate($meta)
-    {
-        return md5_file($meta->path) === $meta->hash;
-    }
-
-    public function put($key, $meta)
+    public function put($blog)
     {
         $all = $this->all();
-        $all->put($key, $meta);
+        $all->put($blog->meta->slug, $blog);
         Cache::forever('blogdown.meta', $all);
-    }
-
-    public function store($path)
-    {
-        $parser = new Parser($path);
-        $meta = $parser->meta();
-        $this->put($meta->slug, $meta);
-        return $meta;
     }
 }

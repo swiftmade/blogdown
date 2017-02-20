@@ -16,10 +16,25 @@ class Presenter
 
     public function find($slug)
     {
-        $meta = $this->repository->get($slug);
-        if(is_null($meta)) {
+        $blog = $this->repository->get($slug);
+        if (is_null($blog)) {
             abort(404);
         }
-        return $meta;
+        if ($this->isModified($blog)) {
+            return $this->refresh($blog);
+        }
+        return $blog;
+    }
+
+    protected function isModified($blog)
+    {
+        return md5_file($blog->meta->path) !== $blog->hash;
+    }
+
+    protected function refresh($blog)
+    {
+        $blog = Parser::parse($blog->meta->path);
+        $this->repository->put($blog);
+        return $blog;
     }
 }
