@@ -28,7 +28,7 @@ class Build extends Command
         $blogPath = base_path(config('blogdown.blog_folder'));
         collect(File::files($blogPath))
             ->filter(function ($file) {
-                return pathinfo($file, 'PATHINFO_EXTENSION') === 'md';
+                return pathinfo($file, PATHINFO_EXTENSION) === 'md';
             })
             ->each(function ($path) {
                 $blog = Parser::parse($path);
