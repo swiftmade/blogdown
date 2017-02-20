@@ -26,4 +26,9 @@ class Repository
         $all->put($blog->meta->slug, $blog);
         Cache::forever('blogdown.meta', $all);
     }
+
+    public function flush()
+    {
+        Cache::forget('blogdown.meta');
+    }
 }

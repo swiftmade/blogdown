@@ -25,6 +25,8 @@ class Build extends Command
 
     public function handle()
     {
+        $this->repository->flush();
+        
         $blogPath = base_path(config('blogdown.blog_folder'));
         collect(File::files($blogPath))
             ->filter(function ($file) {
