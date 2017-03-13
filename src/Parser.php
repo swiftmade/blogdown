@@ -2,6 +2,7 @@
 
 namespace Swiftmade\Blogdown;
 
+use Carbon\Carbon;
 use Michelf\MarkdownExtra;
 
 class Parser
@@ -41,6 +42,10 @@ class Parser
                 list($key, $value) = $this->breakMetaLine($line);
                 $meta->$key = $value;
             });
+
+        if(property_exists($meta, 'date')) {
+            $meta->date = Carbon::createFromFormat(config('blogdown.date_format'), $meta->date);
+        }
 
         return $meta;
     }
