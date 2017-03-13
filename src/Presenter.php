@@ -26,6 +26,16 @@ class Presenter
         return $blog;
     }
 
+    public function others($slug, $take = 5)
+    {
+        return $this->repository->all()
+            ->filter(function($blog) use($slug) {
+                return $blog->meta->slug !== $slug;
+            })
+            ->shuffle()
+            ->take($take);
+    }
+
     protected function isModified($blog)
     {
         return md5_file($blog->meta->path) !== $blog->hash;
