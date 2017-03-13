@@ -26,6 +26,13 @@ class Presenter
         return $blog;
     }
 
+    public function recent($take = 10)
+    {
+        return $this->repository->all()
+            ->sortByDesc('date')
+            ->take($take);
+    }
+
     public function others($slug, $take = 5)
     {
         return $this->repository->all()
