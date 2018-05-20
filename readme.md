@@ -18,7 +18,7 @@ Require this package through composer:
 composer require swiftmade/blogdown
 ```
 
-Then register the service provider in your config/app.php
+If you're using Laravel < 5.5, then you'll need to register the service provider in your config/app.php
 
 ```php
 Swiftmade\Blogdown\Providers\BlogdownProvider::class
@@ -92,7 +92,7 @@ stdClass Object
 )
 ```
 
-In your view file just display your rendered HTML unesacped:
+In your view file just display your rendered HTML unescaped:
 
 ```php
 {!! $blog->html !!}
