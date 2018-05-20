@@ -33,7 +33,7 @@ class Build extends Command
                 return pathinfo($file, PATHINFO_EXTENSION) === 'md';
             })
             ->each(function ($path) {
-                $blog = Parser::parse($path);
+                $blog = Parser::parse(((string)$path);
                 $this->repository->put($blog);
                 $this->info('Cached /' . $blog->meta->slug);
             });
