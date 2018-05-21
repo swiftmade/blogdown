@@ -18,5 +18,12 @@
         "psr-4": {
             "Swiftmade\\Blogdown\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Swiftmade\\Blogdown\\Providers\\BlogdownProvider"
+            ]
+        }
     }
 }

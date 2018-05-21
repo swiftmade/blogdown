@@ -29,7 +29,7 @@ class Presenter
     public function recent($take = 10)
     {
         return $this->repository->all()
-            ->sortByDesc('date')
+            ->sortByDesc('meta.date')
             ->take($take);
     }
 
