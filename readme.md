@@ -78,17 +78,16 @@ And in return you get this object:
 ```php
 stdClass Object
 (
-	[meta] => stdClass Object
-		(
-			[path] => /path/to/your/file.md
-			[slug] => this-is-your-slug
-			[title] => Title of My Article
-			[keywords] => any keywords, you want to add, here
-			[description] => you can add any tag you want
-			[date] => 19.02.2017
-		)
-
-	[html] => Your HTML code
+    [meta] => stdClass Object
+    (
+	[path] => /path/to/your/file.md
+	[slug] => this-is-your-slug
+	[title] => Title of My Article
+	[keywords] => any keywords, you want to add, here
+	[description] => you can add any tag you want
+	[date] => 19.02.2017
+    )
+    [html] => Your HTML code
 )
 ```
 
