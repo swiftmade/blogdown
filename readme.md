@@ -1,5 +1,4 @@
 # Laravel Blogdown
-===
 
 This package enables you to write content in Markdown and display it in your **Laravel 5.*** application. You can also use this package to build a simple blog.
 
@@ -28,7 +27,7 @@ If you want to change the default blog folder (*defaults to resources/views/blog
 
 ## Use
 
-### a. Format
+### Format
 
 Here is a sample blog article:
 
@@ -52,7 +51,7 @@ Hey, this is my first blogdown article. Here is a list:
 * It just works!
 ```
 
-### b. Building
+### Building
 
 You need to put your markdown files (with .md extension) inside the blog folder (see install notes for configuration). Afterwards, you need to run the following artisan command:
 
@@ -62,7 +61,7 @@ php artisan blog:build
 
 This command is necessary when you add a new article or when you want to flush the entire cache and rebuild it. Blogdown automatically detects a modification to an existing article, so no need to run this when you modify your articles.
 
-### c. Retrieving Articles
+### Retrieving Articles
 
 The only meta tag required by Blogdown is *slug*. The package uses this tag as a unique identifier across all your markdown files. While retrieving your blog article, you pass in this slug like this:
 
