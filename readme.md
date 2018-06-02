@@ -1,16 +1,16 @@
-Laravel Blogdown
+# Laravel Blogdown
 ===
 
 This package enables you to write content in Markdown and display it in your **Laravel 5.*** application. You can also use this package to build a simple blog.
 
-### Main Features
+## Main Features
 * No database / migrations needed
 * Pre-renders the content for speed
 * Automatically detects changes in markdown files
 * Works out of the box
 * Simple to use
 
-### Install
+## Install
 
 Require this package through composer:
 
@@ -26,9 +26,9 @@ Swiftmade\Blogdown\Providers\BlogdownProvider::class
 	
 If you want to change the default blog folder (*defaults to resources/views/blog*), use `php artisan vendor:publish` to publish the config file.
 
-### Use
+## Use
 
-#### a. Format
+### a. Format
 
 Here is a sample blog article:
 
@@ -52,7 +52,7 @@ Hey, this is my first blogdown article. Here is a list:
 * It just works!
 ```
 
-#### b. Building
+### b. Building
 
 You need to put your markdown files (with .md extension) inside the blog folder (see install notes for configuration). Afterwards, you need to run the following artisan command:
 
@@ -62,7 +62,7 @@ php artisan blog:build
 
 This command is necessary when you add a new article or when you want to flush the entire cache and rebuild it. Blogdown automatically detects a modification to an existing article, so no need to run this when you modify your articles.
 
-#### c. Retrieving Articles
+### c. Retrieving Articles
 
 The only meta tag required by Blogdown is *slug*. The package uses this tag as a unique identifier across all your markdown files. While retrieving your blog article, you pass in this slug like this:
 
@@ -97,7 +97,38 @@ In your view file just display your rendered HTML unescaped:
 ```php
 {!! $blog->html !!}
 ```
+
+### Adding custom modifiers
+
+Sometimes you might like to modify the output of the HTML using your own custom tags. For example you might like to replace any instance of the string [AD] with the HTML for an advert unit. You can do this by adding a customer modifier.
+
+```php
+namespace App\BlogModifiers;
+
+use Swiftmade\Blogdown\Contracts\ModifierInterface;
+
+class AdvertModifier implements ModifierInterface
+{
+
+    public function apply($html): string 
+    {
+        $advertCode = '<p>Buy stuff from Company X</p>';
+            
+        return str_replace('[AD]', $advertCode, $html);
+    }
+
+}
+```
+
+Make sure you have published the config for blogdown (`php artisan vendor:publish`). Add your modifier to the list of modifiers.
+
+```php
+'modifiers' => [
+	\Swiftmade\Blogdown\Modifiers\TableModifier::class,
+	\App\BlogModifiers\AdvertModifier::class,
+],
+```
 	
-### Contributions Are Welcome
+## Contributions Are Welcome
 
 If you want to see more features or report bugs feel free to open issues and send pull requests.
