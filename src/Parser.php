@@ -4,6 +4,7 @@ namespace Swiftmade\Blogdown;
 
 use Carbon\Carbon;
 use Michelf\MarkdownExtra;
+use Swiftmade\Blogdown\Contracts\ModifierInterface;
 
 class Parser
 {
@@ -63,8 +64,26 @@ class Parser
     {
         $markdown = preg_replace('/\/\*(.+?)\*\//ms', '', $this->content);
         $html = MarkdownExtra::defaultTransform($markdown);
-        // TODO: Move this to a custom modifier.
-        $html = str_replace('<table>', '<table class="table table-bordered">', $html);
+        $html = $this->applyModifiers($html);
+
+        return $html;
+    }
+
+    public function applyModifiers($html)
+    {
+        $modifiers = config('blogdown.modifiers');
+
+        foreach ($modifiers as $modifier) {
+
+            $modifier = resolve($modifier);
+
+            if (! $modifier instanceof ModifierInterface) {
+                throw new \Exception("Modifiers must implement the ModifierInterface.");
+            }
+
+            $html = $modifier->apply($html);
+        }
+
         return $html;
     }
 }
