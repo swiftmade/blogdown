@@ -109,10 +109,9 @@ use Swiftmade\Blogdown\Contracts\ModifierInterface;
 class AdvertModifier implements ModifierInterface
 {
 
-    public function apply($html): string 
+    public function apply($html)
     {
         $advertCode = '<p>Buy stuff from Company X</p>';
-            
         return str_replace('[AD]', $advertCode, $html);
     }
 
