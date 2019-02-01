@@ -45,7 +45,10 @@ class Parser
             });
 
         if (property_exists($meta, 'date')) {
-            $meta->date = Carbon::createFromFormat(config('blogdown.date_format'), $meta->date);
+            $meta->date = Carbon::createFromFormat(
+                config('blogdown.date_format'),
+                $meta->date
+            );
         }
 
         return $meta;

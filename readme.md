@@ -1,15 +1,16 @@
-# Laravel Blogdown
+Laravel Blogdown
+=====================
 
-This package enables you to write content in Markdown and display it in your **Laravel 5.*** application. You can also use this package to build a simple blog.
+Build a blog in your Laravel 5.* site using only Markdown files.
 
-## Main Features
-* No database / migrations needed
-* Pre-renders the content for speed
-* Automatically detects changes in markdown files
-* Works out of the box
-* Simple to use
+### Awesome Features
 
-## Install
+* 📝 Just markdown files, no migrations, no admin panels.
+* 🔗 Easily build permalinks by adding slugs to your posts.
+* 🧭 Store your SEO data in the meta section of the same file.
+* 💉 Extend the markdown parser as you like via custom modifiers.
+
+### Add to Your Project
 
 Require this package through composer:
 
@@ -25,11 +26,11 @@ Swiftmade\Blogdown\Providers\BlogdownProvider::class
 	
 If you want to change the default blog folder (*defaults to resources/views/blog*), use `php artisan vendor:publish` to publish the config file.
 
-## Use
+## Documentation
 
-### Format
+### 1. Creating Blog Posts, Formatting
 
-Here is a sample blog article:
+It's as simple as creating a new file under `resources/views/blog` File extension must be .md 
 
 ```markdown
 /*
@@ -51,28 +52,42 @@ Hey, this is my first blogdown article. Here is a list:
 * It just works!
 ```
 
-### Building
+* Each blog post must start with a meta section declared using `/*` and `*`
+* Most fields are up to you but some fields are special:
+	* **Slug:** Slug must be a unique URL-friendly string to access your article.
+	* **Date:** The date property is a special one in that it is transformed into a Carbon object. `d.m.Y` format is followed. If you wish to change it, you can publish the config file of the package and modify it.
 
-You need to put your markdown files (with .md extension) inside the blog folder (see install notes for configuration). Afterwards, you need to run the following artisan command:
+
+### 2. Displaying Blog Posts
+
+After updating your blog posts (or after pulling updates into production), run this command once:
 
 ```
 php artisan blog:build
 ```
 
-This command is necessary when you add a new article or when you want to flush the entire cache and rebuild it. Blogdown automatically detects a modification to an existing article, so no need to run this when you modify your articles.
-
-### Retrieving Articles
-
-The only meta tag required by Blogdown is *slug*. The package uses this tag as a unique identifier across all your markdown files. While retrieving your blog article, you pass in this slug like this:
+Why? Because this command will scan all of the articles and read their meta data. It will be stored in the cache and then you'll be able to conveniently do stuff like:
 
 ```php
+<?php
+
 use Swiftmade\Blogdown\Facades\Blogdown;
+	
+// Retrieves 15 of the most recent articles
+$posts = Blogdown::recent(15);
+	
+// Pass the slug (unique identifier) of any article to directly retrieve it.
+$post = Blogdown::find($slug);
+	
+// Pass a slug to retrieve random articles except for the slug you passed in.
+// Useful to build a feature like "other articles you might want to read"
+$posts = Blogdown::other($slug, 5);
+```	
 
+### 3. The Post Object
 
-Blogdown::find('this-is-your-slug');
-```
+When you retrieve an article, what's returned is the following object:
 
-And in return you get this object:
 
 ```php
 stdClass Object
@@ -96,7 +111,7 @@ In your view file just display your rendered HTML unescaped:
 {!! $blog->html !!}
 ```
 
-### Adding custom modifiers
+### 4. Extending the Markdown Parser
 
 Sometimes you might like to modify the output of the HTML using your own custom tags. For example you might like to replace any instance of the string [AD] with the HTML for an advert unit. You can do this by adding a customer modifier.
 
@@ -126,6 +141,11 @@ Make sure you have published the config for blogdown (`php artisan vendor:publis
 ],
 ```
 	
-## Contributions Are Welcome
+## Pull Requests Are Welcome
 
 If you want to see more features or report bugs feel free to open issues and send pull requests.
+
+**Contributors:**
+
+* [@aozisik](https://github.com/aozisik)
+* [@BenSampo](https://github.com/BenSampo)
