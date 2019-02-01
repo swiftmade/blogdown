@@ -62,8 +62,7 @@ class Parser
 
     public function html()
     {
-        $markdown = preg_replace('/\/\*(.+?)\*\//ms', '', $this->content);
-        $html = MarkdownExtra::defaultTransform($markdown);
+        $html = MarkdownExtra::defaultTransform($this->content);
         $html = $this->applyModifiers($html);
 
         return $html;
