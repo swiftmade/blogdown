@@ -52,7 +52,7 @@ Hey, this is my first blogdown article. Here is a list:
 * It just works!
 ```
 
-* Each blog post must start with a meta section declared using `/*` and `*`
+* Each blog post must start with a meta section declared in between `/*` and `*/`
 * Most fields are up to you but some fields are special:
 	* **Slug:** Slug must be a unique URL-friendly string to access your article.
 	* **Date:** The date property is a special one in that it is transformed into a Carbon object. `d.m.Y` format is followed. If you wish to change it, you can publish the config file of the package and modify it.
