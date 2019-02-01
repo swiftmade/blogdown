@@ -30,7 +30,7 @@ class Parser
     public function meta()
     {
         if (!preg_match('/\/\*(.+?)\*\//ms', $this->content, $matches)) {
-            throw new \Exception("Invalid blogdown syntax. Missing meta section");
+            throw new \Exception('Invalid blogdown syntax. Missing meta section');
         }
         $meta = new \stdClass();
         $meta->path = $this->path;
@@ -44,7 +44,7 @@ class Parser
                 $meta->$key = $value;
             });
 
-        if(property_exists($meta, 'date')) {
+        if (property_exists($meta, 'date')) {
             $meta->date = Carbon::createFromFormat(config('blogdown.date_format'), $meta->date);
         }
 
@@ -76,11 +76,10 @@ class Parser
         $modifiers = config('blogdown.modifiers');
 
         foreach ($modifiers as $modifier) {
-
             $modifier = resolve($modifier);
 
-            if (! $modifier instanceof ModifierInterface) {
-                throw new \Exception("Modifiers must implement the ModifierInterface.");
+            if (!$modifier instanceof ModifierInterface) {
+                throw new \Exception('Modifiers must implement the ModifierInterface.');
             }
 
             $html = $modifier->apply($html);

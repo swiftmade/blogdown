@@ -36,7 +36,7 @@ class Presenter
     public function others($slug, $take = 5)
     {
         return $this->repository->all()
-            ->filter(function($blog) use($slug) {
+            ->filter(function ($blog) use ($slug) {
                 return $blog->meta->slug !== $slug;
             })
             ->shuffle()

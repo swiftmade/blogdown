@@ -19,7 +19,8 @@ class BlogdownProvider extends LaravelServiceProvider
         ]);
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/blogdown.php', 'blogdown'
+            __DIR__ . '/../Config/blogdown.php',
+            'blogdown'
         );
 
         $this->commands([
