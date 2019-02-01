@@ -62,7 +62,9 @@ class Parser
 
     public function html()
     {
-        $markdown = preg_replace('/\/\*(.+?)\*\//ms', '', $this->content);
+        // Remove the meta from the content, before parsing it as Markdown
+        $markdown = preg_replace('/\/\*(.+?)\*\//ms', '', $this->content, 1);
+
         $html = MarkdownExtra::defaultTransform($markdown);
         $html = $this->applyModifiers($html);
 
