@@ -1,5 +1,4 @@
 <?php
-
 namespace Swiftmade\Blogdown\Providers;
 
 use Swiftmade\Blogdown\Presenter;

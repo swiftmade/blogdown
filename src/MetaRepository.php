@@ -2,28 +2,25 @@
 
 namespace Swiftmade\Blogdown;
 
+use Swiftmade\Blogdown\Support\Meta;
 use Illuminate\Support\Facades\Cache;
 
-class Repository
+class MetaRepository
 {
     public function all()
     {
         return Cache::get('blogdown.meta', collect([]));
     }
 
-    public function get($slug, $default = null)
+    public function get($slug)
     {
-        $all = $this->all();
-        if (!$all->has($slug)) {
-            return $default;
-        }
-        return $all->get($slug);
+        return $this->all()->get($slug);
     }
 
-    public function put($blog)
+    public function put(Meta $meta)
     {
         $all = $this->all();
-        $all->put($blog->meta->slug, $blog);
+        $all->put($meta->slug, $meta);
         Cache::forever('blogdown.meta', $all);
     }
 

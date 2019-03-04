@@ -19,11 +19,19 @@
             "Swiftmade\\Blogdown\\": "src/"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "Swiftmade\\Blogdown\\Providers\\BlogdownProvider"
             ]
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
     }
 }

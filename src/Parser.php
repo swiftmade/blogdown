@@ -1,80 +1,80 @@
 <?php
-
 namespace Swiftmade\Blogdown;
 
-use Carbon\Carbon;
+use Exception;
 use Michelf\MarkdownExtra;
+use Swiftmade\Blogdown\Support\Meta;
 use Swiftmade\Blogdown\Contracts\ModifierInterface;
 
 class Parser
 {
     private $path;
-    private $content;
+    private $handle;
 
-    public function __construct($path)
+    private function __construct($path)
     {
         $this->path = $path;
-        $this->content = file_get_contents($path);
     }
 
-    public static function parse($path)
+    public static function meta($path)
     {
-        $parser = (new self($path));
-        $blog = new \stdClass();
-        $blog->meta = $parser->meta();
-        $blog->html = $parser->html();
-        $blog->hash = md5_file($path);
-        return $blog;
+        return (new self($path))->getMeta();
     }
 
-    public function meta()
+    public static function html($path)
     {
-        if (!preg_match('/\/\*(.+?)\*\//ms', $this->content, $matches)) {
-            throw new \Exception('Invalid blogdown syntax. Missing meta section');
-        }
-        $meta = new \stdClass();
-        $meta->path = $this->path;
+        return (new self($path))->getContent();
+    }
 
-        collect(explode("\n", $matches[1]))
-            ->filter(function ($line) {
-                return !empty(trim($line));
-            })
-            ->each(function ($line) use ($meta) {
-                list($key, $value) = $this->breakMetaLine($line);
-                $meta->$key = $value;
-            });
+    private function getMeta()
+    {
+        $this->open($this->path);
 
-        if (property_exists($meta, 'date')) {
-            $meta->date = Carbon::createFromFormat(
-                config('blogdown.date_format'),
-                $meta->date
-            );
+        $meta = new Meta(
+            $this->path
+        );
+
+        $line = fgets($this->handle, 1024);
+
+        if ($line !== '/*') {
+            throw new Exception('All blog posts must start with meta section.');
         }
 
+        // Until the meta section is closed, keep reading
+        while ($line !== '*/') {
+            $line = fgets($this->handle, 1024);
+            $meta->parseLine($line);
+        }
+
+        $this->close();
         return $meta;
     }
 
-    protected function breakMetaLine($line)
+    private function open($path)
     {
-        $firstColon = strpos($line, ':');
-        return array_map('trim', [
-            substr($line, 0, $firstColon),
-            substr($line, $firstColon + 1, strlen($line) - $firstColon)
-        ]);
+        if (!is_readable($path)) {
+            throw new Exception('Post at "' . $path . '" cannot be read.');
+        }
+
+        $this->handle = fopen($path, 'r');
     }
 
-    public function html()
+    private function close()
     {
-        // Remove the meta from the content, before parsing it as Markdown
-        $markdown = preg_replace('/\/\*(.+?)\*\//ms', '', $this->content, 1);
-
-        $html = MarkdownExtra::defaultTransform($markdown);
-        $html = $this->applyModifiers($html);
-
-        return $html;
+        fclose($this->handle);
     }
 
-    public function applyModifiers($html)
+    private function getContent()
+    {
+        $content = file_get_contents($this->path);
+        $content = preg_replace('/\/\*(.+?)\*\//ms', '', $content, 1);
+
+        return $this->applyModifiers(
+            MarkdownExtra::defaultTransform($content)
+        );
+    }
+
+    private function applyModifiers($content)
     {
         $modifiers = config('blogdown.modifiers');
 
@@ -85,9 +85,9 @@ class Parser
                 throw new \Exception('Modifiers must implement the ModifierInterface.');
             }
 
-            $html = $modifier->apply($html);
+            $content = $modifier->apply($content);
         }
 
-        return $html;
+        return $content;
     }
 }

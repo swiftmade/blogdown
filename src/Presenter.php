@@ -1,6 +1,7 @@
 <?php
-
 namespace Swiftmade\Blogdown;
+
+use Swiftmade\Blogdown\Post\Post;
 
 class Presenter
 {
@@ -9,49 +10,51 @@ class Presenter
      */
     private $repository;
 
-    public function __construct(Repository $repository)
+    public function __construct(MetaRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function find($slug)
     {
-        $blog = $this->repository->get($slug);
-        if (is_null($blog)) {
-            abort(404);
+        if (!($meta = $this->repository->get($slug))) {
+            return null;
         }
-        if ($this->isModified($blog)) {
-            return $this->refresh($blog);
+
+        // Update meta data if necessary...
+        if ($meta->isFileModified()) {
+            $meta = Parser::meta($meta->path);
+            $this->repository->put($meta);
         }
-        return $blog;
+
+        $post = new Post;
+        $post->meta = $meta;
+        $post->html = Parser::html($meta->path);
+        return $post;
     }
 
-    public function recent($take = 10)
+    public function findOrFail($slug)
+    {
+        if ($post = $this->find($slug)) {
+            return $post;
+        }
+        abort(404);
+    }
+
+    public function latest($take = 10)
     {
         return $this->repository->all()
-            ->sortByDesc('meta.date')
+            ->sortByDesc('date')
             ->take($take);
     }
 
     public function others($slug, $take = 5)
     {
         return $this->repository->all()
-            ->filter(function ($blog) use ($slug) {
-                return $blog->meta->slug !== $slug;
+            ->filter(function ($meta) use ($slug) {
+                return $meta->slug !== $slug;
             })
             ->shuffle()
             ->take($take);
-    }
-
-    protected function isModified($blog)
-    {
-        return md5_file($blog->meta->path) !== $blog->hash;
-    }
-
-    protected function refresh($blog)
-    {
-        $blog = Parser::parse($blog->meta->path);
-        $this->repository->put($blog);
-        return $blog;
     }
 }
