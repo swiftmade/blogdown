@@ -2,6 +2,7 @@
 namespace Swiftmade\Blogdown\Providers;
 
 use Swiftmade\Blogdown\Presenter;
+use Illuminate\Support\Facades\Config;
 use Swiftmade\Blogdown\Commands\Build;
 use Swiftmade\Blogdown\Facades\Blogdown as BlogdownFacade;
 use Swiftmade\Blogdown\Modifiers\TagModifier\AddAttribute;
@@ -29,6 +30,10 @@ class BlogdownProvider extends LaravelServiceProvider
             __DIR__ . '/../Config/blogdown.php',
             'blogdown'
         );
+
+        if (Config::get('blogdown.register_routes')) {
+            $this->loadRoutesFrom(__DIR__ . '/../App/routes.php');
+        }
 
         $this->commands([
             Build::class

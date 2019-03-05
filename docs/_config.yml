@@ -1,6 +1,7 @@
 title: Blogdown
 description: Ultra simple markdown blogging for Laravel
 remote_theme: pmarsceill/just-the-docs
+exclude: ["readme.md"]
 aux_links:
-  "Who made this?":
+  "Made with ❤ by Swiftmade":
     - "//swiftmade.co"
