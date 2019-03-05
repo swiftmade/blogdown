@@ -14,7 +14,7 @@ class PostsController
 
     public function index()
     {
-        $posts = $this->presenter->latest(2);
+        $posts = $this->presenter->latest(15);
 
         return view('vendor.blogdown.posts')->with(
             compact('posts')
