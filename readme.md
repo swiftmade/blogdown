@@ -3,6 +3,14 @@ Laravel Blogdown
 
 Build a blog in your Laravel 5.* site using only Markdown files.
 
+### v2 Checklist
+
+- [ ] Out of the box Controller and route registration
+- [ ] Fix Build command
+- [ ] Write tests for Presenter
+- [ ] Document AddAttribute facade
+- [ ] Code syntax higlighting support (via highlight.js)
+
 ### Awesome Features
 
 * 📝 Just markdown files, no migrations, no admin panels.

@@ -46,4 +46,17 @@ class ParserTest extends IntegrationTestCase
         $html = Parser::html($path);
         $this->assertEquals("<h1 class=\"mb-2\">this is an H1</h1>\n\n<p>some text...</p>\n", $html);
     }
+
+    /**
+     * @test
+     */
+    public function it_supports_code_blocks()
+    {
+        $path = __DIR__ . '/../fixtures/code.md';
+
+        $html = Parser::html($path);
+
+        $expected = '<pre><code class="html">' . htmlentities('<b>Hello World</b>') . "\n" . '</code></pre>' . "\n";
+        $this->assertEquals($expected, $html);
+    }
 }
