@@ -1,0 +1,6 @@
+title: Blogdown
+description: Ultra simple markdown blogging for Laravel
+remote_theme: pmarsceill/just-the-docs
+aux_links:
+  "Who made this?":
+    - "//swiftmade.co"
