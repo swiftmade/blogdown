@@ -31,10 +31,8 @@ class Presenter
             $this->repository->put($meta);
         }
 
-        $post = new Post;
-        $post->meta = $meta;
-        $post->html = Parser::html($meta->path);
-        return $post;
+        $html = Parser::html($meta->path);
+        return Post::fromHtml($html, $meta);
     }
 
     public function findOrFail($slug)
