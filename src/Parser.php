@@ -4,6 +4,7 @@ namespace Swiftmade\Blogdown;
 use Exception;
 use Michelf\MarkdownExtra;
 use Swiftmade\Blogdown\Support\Meta;
+use Illuminate\Support\Facades\Config;
 use Swiftmade\Blogdown\Contracts\ModifierInterface;
 
 class Parser
@@ -36,12 +37,12 @@ class Parser
 
         $line = fgets($this->handle, 1024);
 
-        if ($line !== '/*') {
+        if ($line !== '/*' . PHP_EOL) {
             throw new Exception('All blog posts must start with meta section.');
         }
 
         // Until the meta section is closed, keep reading
-        while ($line !== '*/') {
+        while (strpos($line, '*/') === false) {
             $line = fgets($this->handle, 1024);
             $meta->parseLine($line);
         }
@@ -76,7 +77,7 @@ class Parser
 
     private function applyModifiers($content)
     {
-        $modifiers = config('blogdown.modifiers');
+        $modifiers = Config::get('blogdown.modifiers');
 
         foreach ($modifiers as $modifier) {
             $modifier = resolve($modifier);

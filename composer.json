@@ -14,6 +14,10 @@
         "michelf/php-markdown": "^1.7",
         "nesbot/carbon": "^1.22"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5",
+        "laravel/laravel": "5.*"
+    },
     "autoload": {
         "psr-4": {
             "Swiftmade\\Blogdown\\": "src/"
@@ -21,7 +25,8 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/IntegrationTestCase.php"
         ]
     },
     "extra": {
@@ -30,8 +35,5 @@
                 "Swiftmade\\Blogdown\\Providers\\BlogdownProvider"
             ]
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7.5"
     }
 }

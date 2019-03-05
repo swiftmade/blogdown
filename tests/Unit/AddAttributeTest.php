@@ -11,7 +11,7 @@ class AddAttributeTest extends TestCase
     public function it_can_modify_all_h_tags()
     {
         $modifier = new AddAttribute();
-        $modifier->rule(AttributeRule::HTags('custom_css_class'));
+        $modifier->rules(AttributeRule::HTags('custom_css_class'));
 
         $input = join('', [
             '<h1>first tag</h1>',
@@ -43,7 +43,7 @@ class AddAttributeTest extends TestCase
     public function it_modifies_paragraphs()
     {
         $modifier = new AddAttribute();
-        $modifier->rule(AttributeRule::P('mb-4'));
+        $modifier->rules(AttributeRule::P('mb-4'));
 
         $input = '<p>test</p><div>unaffected</div>';
         $expected = '<p class="mb-4">test</p><div>unaffected</div>';
@@ -62,8 +62,10 @@ class AddAttributeTest extends TestCase
     public function it_modifies_links()
     {
         $modifier = new AddAttribute();
-        $modifier->rule(AttributeRule::A('btn btn-link'));
-        $modifier->rule(AttributeRule::A('_blank', 'target'));
+        $modifier->rules(
+            AttributeRule::A('btn btn-link'),
+            AttributeRule::A('_blank', 'target')
+        );
 
         $input = '<p>test</p> <a href="http://test">test link</a>';
         $expected = '<p>test</p> <a target="_blank" class="btn btn-link" href="http://test">test link</a>';

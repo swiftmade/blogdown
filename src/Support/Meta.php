@@ -3,6 +3,7 @@ namespace Swiftmade\Blogdown\Support;
 
 use stdClass;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class Meta extends stdClass
 {
@@ -42,7 +43,7 @@ class Meta extends stdClass
     private function setDateAttribute($value)
     {
         $this->date = Carbon::createFromFormat(
-            config('blogdown.date_format'),
+            Config::get('blogdown.date_format'),
             $value
         );
     }

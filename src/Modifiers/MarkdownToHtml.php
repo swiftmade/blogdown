@@ -4,7 +4,7 @@ namespace Swiftmade\Blogdown\Modifiers;
 use Michelf\MarkdownExtra;
 use Swiftmade\Blogdown\Contracts\ModifierInterface;
 
-class MarkdownTransformer implements ModifierInterface
+class MarkdownToHtml implements ModifierInterface
 {
     public function apply($input)
     {

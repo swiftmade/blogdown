@@ -7,9 +7,12 @@ class AddAttribute implements ModifierInterface
 {
     private $rules = [];
 
-    public function rule(AttributeRule $rule)
+    public function rules()
     {
-        $this->rules[] = $rule;
+        $args = func_get_args();
+        foreach ($args as $rule) {
+            $this->rules[] = $rule;
+        }
     }
 
     public function apply($html)
