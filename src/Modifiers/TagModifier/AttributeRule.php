@@ -16,7 +16,7 @@ class AttributeRule
 
     public static function Tags($name, $value, $attribute = 'class')
     {
-        return new self("/\<($name)/", $value, $attribute);
+        return new self("/\<($name)(\s|\>)/", $value, $attribute);
     }
 
     public static function HTags($value, $attribute = 'class')
@@ -49,11 +49,14 @@ class AttributeRule
         return preg_replace_callback(
             $this->tagMatcher,
             function ($matches) {
+                // matches[1] is the name of the tag
+                // matches[2] is > or blank space based on the situation
                 return sprintf(
-                    '<%s %s="%s"',
+                    '<%s %s="%s"%s',
                     $matches[1],
                     $this->attribute,
-                    $this->value
+                    $this->value,
+                    $matches[2]
                 );
             },
             $html

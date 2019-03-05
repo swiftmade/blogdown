@@ -45,8 +45,8 @@ class AddAttributeTest extends TestCase
         $modifier = new AddAttribute();
         $modifier->rules(AttributeRule::P('mb-4'));
 
-        $input = '<p>test</p><div>unaffected</div>';
-        $expected = '<p class="mb-4">test</p><div>unaffected</div>';
+        $input = '<p>test</p><pre>unaffected</pre>';
+        $expected = '<p class="mb-4">test</p><pre>unaffected</pre>';
 
         $output = $modifier->apply($input);
 
