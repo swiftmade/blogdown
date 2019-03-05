@@ -2,11 +2,15 @@
 namespace Swiftmade\Blogdown;
 
 use Swiftmade\Blogdown\Post\Post;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Swiftmade\Blogdown\Repositories\MetaRepository;
 
 class Presenter
 {
     /**
-     * @var Repository
+     * @var \Swiftmade\Blogdown\MetaRepository
      */
     private $repository;
 
@@ -41,11 +45,25 @@ class Presenter
         abort(404);
     }
 
-    public function latest($take = 10)
+    public function latest($paginate = 10)
     {
-        return $this->repository->all()
-            ->sortByDesc('date')
-            ->take($take);
+        $posts = $this->repository->all()->sortByDesc('date');
+        return $this->paginate(
+            $posts,
+            $paginate
+        );
+    }
+
+    private function paginate(Collection $items, $perPage)
+    {
+        $page = Paginator::resolveCurrentPage();
+
+        return new LengthAwarePaginator(
+            $items->forPage($page, $perPage),
+            $items->count(),
+            $perPage,
+            $page
+        );
     }
 
     public function others($slug, $take = 5)

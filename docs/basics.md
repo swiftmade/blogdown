@@ -4,7 +4,7 @@ title: Basics
 nav_order: 2
 ---
 
-# Configuration
+# Basics
 {: .no_toc }
 
 Basics of Blogdown
@@ -26,7 +26,6 @@ To make a new post, simply create a new markdown file at `resource/views/blog/he
 
 ```markdown
 /*
-slug: hello-world
 title: Hello World!
 date: 05.03.2019
 */
@@ -35,7 +34,19 @@ date: 05.03.2019
 This is my first blog post using Blogdown!
 ```
 
-The first portion of the file is the meta section. There are **3 compulsory meta fields: slug, title and date**. After this, you are free to add as many meta fields as you like. We will show how to access these fields in a second.
+### See your post at /blog/hello-world
+{: .no_toc }
 
-### View your first blog post!
-Your first post should now be available at `/blog/hello-world` relative to your app's base URL.
+Your first post should now be available at `/blog/hello-world` relative to your app's base URL. This permalink is determined by the file name of your post. To change the /blog/ prefix, see the section on [customization.](customize.html)
+
+## Meta Data
+
+Each post must start with a meta section, starting with `/*` and ending with `*/`. You are free to add as many meta fields as you like. However some meta keys are special and they are treated differently.
+
+### Date
+
+The **date** key is special in that it's transformed into a Carbon object by the parser. To change the date format, see the section on [customization.](customize.html)
+
+### Author
+
+The **author** key is an optional key that can be used to assign an author to the post. You can use the package config to add as many authors as you like. Author data is arbitrary and completely up to you. The key in the authors array inside config file must match with the value you pass to the author meta key.

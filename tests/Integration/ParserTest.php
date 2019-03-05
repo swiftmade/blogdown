@@ -16,6 +16,7 @@ class ParserTest extends IntegrationTestCase
         $meta = Parser::meta($path);
 
         $this->assertEquals('post title', $meta->title);
+        $this->assertEquals('post_meta', $meta->slug);
 
         $this->assertInstanceOf(Carbon::class, $meta->date);
         $this->assertEquals('01.12.2018', $meta->date->format('d.m.Y'));

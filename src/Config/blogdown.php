@@ -29,4 +29,13 @@ return [
         // Add your own modifiers..
     ],
 
+    'authors' => [
+        /*
+        'taylor' => [
+            'name' => 'Taylor Otwell',
+            'title' => 'Laravel\'s Creator',
+            'thumbnail' => 'url_to_thumbnail.jpg',
+        ],
+        */
+    ],
 ];

@@ -4,20 +4,20 @@ namespace Swiftmade\Blogdown\Commands;
 
 use Swiftmade\Blogdown\Parser;
 use Illuminate\Console\Command;
-use Swiftmade\Blogdown\Repository;
 use Illuminate\Support\Facades\File;
+use Swiftmade\Blogdown\Repositories\MetaRepository;
 
 class Build extends Command
 {
     /**
-     * @var Repository
+     * @var MetaRepository
      */
     private $repository;
 
     protected $signature = 'blog:build';
     protected $description = 'Caches blog articles';
 
-    public function __construct(Repository $repository)
+    public function __construct(MetaRepository $repository)
     {
         parent::__construct();
         $this->repository = $repository;
@@ -33,9 +33,9 @@ class Build extends Command
                 return pathinfo($file, PATHINFO_EXTENSION) === 'md';
             })
             ->each(function ($path) {
-                $blog = Parser::parse((string)$path);
-                $this->repository->put($blog);
-                $this->info('Cached /' . $blog->meta->slug);
+                $meta = Parser::meta((string)$path);
+                $this->repository->put($meta);
+                $this->info('Cached /' . $meta->slug);
             });
     }
 }

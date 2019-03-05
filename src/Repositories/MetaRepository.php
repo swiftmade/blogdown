@@ -1,6 +1,5 @@
 <?php
-
-namespace Swiftmade\Blogdown;
+namespace Swiftmade\Blogdown\Repositories;
 
 use Swiftmade\Blogdown\Support\Meta;
 use Illuminate\Support\Facades\Cache;

@@ -11,6 +11,7 @@ class Meta extends stdClass
     {
         $this->path = $path;
         $this->hash = md5_file($path);
+        $this->slug = $this->slugFromPath($path);
     }
 
     public function parseLine($line)
@@ -46,5 +47,10 @@ class Meta extends stdClass
             Config::get('blogdown.date_format'),
             $value
         );
+    }
+
+    private function slugFromPath($path)
+    {
+        return pathinfo($path, PATHINFO_FILENAME);
     }
 }
