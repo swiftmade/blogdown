@@ -4,9 +4,12 @@ namespace Swiftmade\Blogdown\Support;
 use stdClass;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
+use Swiftmade\Blogdown\Repositories\AuthorsRepository;
 
 class Meta extends stdClass
 {
+    private $_author;
+
     public function __construct($path)
     {
         $this->path = $path;
@@ -52,5 +55,13 @@ class Meta extends stdClass
     private function slugFromPath($path)
     {
         return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    public function author()
+    {
+        if (!$this->_author) {
+            $this->_author = resolve(AuthorsRepository::class)->get($this->authorId);
+        }
+        return $this->_author;
     }
 }

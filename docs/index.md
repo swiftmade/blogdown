@@ -19,8 +19,8 @@ Add a blog to your Laravel app in minutes using Blogdown. No database tables, no
 ## Features
 
 - 📝 No migrations. Everything lives in .md files and cache.
-- 🏷 Supports post slugs, author profile, publish date and tags.
 - 🧭  SEO-enabled via customizable meta data and permalink support.
+- 🏷 Attach slug, author profile, publish date and more to your posts.
 - 🛳 Ships with views, controllers and routes. Keep it or customize it.
 - 💉 Customizable render engine. Easily add CSS classes to rendered tags.
 - 💻 Compatible with [highlight.js](https://highlightjs.org/) out of the box for syntax highlighted code.
@@ -37,6 +37,12 @@ If you're using Laravel < 5.5, then you'll need to manually register the service
 
 ```php
 Swiftmade\Blogdown\Providers\BlogdownProvider::class
+```
+
+The final step is to publish the config and view files into your Laravel application.
+
+```bash
+php artisan vendor:publish --provider="Swiftmade\Blogdown\Providers\BlogdownProvider"
 ```
 
 ### That's all!

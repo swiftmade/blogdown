@@ -2,7 +2,6 @@
 namespace Swiftmade\Blogdown\Post;
 
 use stdClass;
-use Swiftmade\Blogdown\Repositories\AuthorsRepository;
 
 class Post extends stdClass
 {
@@ -15,14 +14,5 @@ class Post extends stdClass
         $instance->meta = $meta;
 
         return $instance;
-    }
-
-    public function author()
-    {
-        if (!$this->_author) {
-            $this->_author = resolve(AuthorsRepository::class)->get($this->meta->author);
-        }
-
-        return $this->_author;
     }
 }
