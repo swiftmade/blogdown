@@ -1,8 +1,8 @@
 <?php
 
 use Swiftmade\Blogdown\Parser;
+use Swiftmade\Blogdown\Presenter;
 use Swiftmade\Blogdown\Support\Meta;
-use Swiftmade\Blogdown\Facades\Blogdown;
 use Swiftmade\Blogdown\Repositories\MetaRepository;
 
 class PresenterTest extends IntegrationTestCase
@@ -20,14 +20,14 @@ class PresenterTest extends IntegrationTestCase
 
         $this->assertEquals(2, $repository->all()->count());
 
-        $posts = Blogdown::filter(function (Meta $postMeta) {
+        $posts = resolve(Presenter::class)->filter(function (Meta $postMeta) {
             return strpos($postMeta->keywords, 'keyword') !== false;
         })->latest();
 
         $this->assertCount(1, $posts);
         $this->assertEquals('another published article', $posts->first()->title);
 
-        $posts = Blogdown::latest();
+        $posts = resolve(Presenter::class)->latest();
         // Return both only published posts
         $this->assertCount(2, $posts);
         $this->assertEquals('another published article', $posts->first()->title);
