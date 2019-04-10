@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Swiftmade\Blogdown\Repositories\MetaRepository;
+use Swiftmade\Blogdown\Support\Meta;
 
 class Presenter
 {
@@ -17,6 +18,13 @@ class Presenter
     public function __construct(MetaRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public static function filter(callable $filter)
+    {
+        $repository = resolve(MetaRepository::class);
+        $repository->addFilter($filter);
+        return new self($repository);
     }
 
     public function find($slug)
@@ -45,7 +53,7 @@ class Presenter
 
     public function latest($paginate = 10)
     {
-        $posts = $this->repository->all()->sortByDesc('date');
+        $posts = $this->repository->selected()->sortByDesc('date');
         return $this->paginate(
             $posts,
             $paginate
@@ -66,7 +74,7 @@ class Presenter
 
     public function others($slug, $take = 5)
     {
-        return $this->repository->all()
+        return $this->repository->selected()
             ->filter(function ($meta) use ($slug) {
                 return $meta->slug !== $slug;
             })

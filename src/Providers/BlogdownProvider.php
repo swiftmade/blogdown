@@ -13,7 +13,7 @@ class BlogdownProvider extends LaravelServiceProvider
 {
     public function register()
     {
-        $this->app->singleton('swiftmade.blogdown', Presenter::class);
+        $this->app->bind('swiftmade.blogdown', Presenter::class);
 
         $this->app->singleton(AddAttribute::class, function () {
             return new AddAttribute();
