@@ -52,6 +52,11 @@ class Meta extends stdClass
         );
     }
 
+    private function setDraftAttribute($value)
+    {
+        $this->draft = $value === 'false' ? false : true;
+    }
+
     private function slugFromPath($path)
     {
         return pathinfo($path, PATHINFO_FILENAME);
@@ -63,5 +68,17 @@ class Meta extends stdClass
             $this->_author = resolve(AuthorsRepository::class)->get($this->authorId);
         }
         return $this->_author;
+    }
+
+    public function isDraft()
+    {
+        return property_exists($this, 'draft')
+            ? $this->draft
+            : false;
+    }
+
+    public function isPublished()
+    {
+        return !$this->isDraft();
     }
 }

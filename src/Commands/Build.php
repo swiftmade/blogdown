@@ -34,8 +34,13 @@ class Build extends Command
             })
             ->each(function ($path) {
                 $meta = Parser::meta((string)$path);
-                $this->repository->put($meta);
-                $this->info('Cached /' . $meta->slug);
+
+                if ($meta->isPublished()) {
+                    $this->repository->put($meta);
+                    $this->info('Cached /' . $meta->slug);
+                } else {
+                    $this->comment('Draft /' . $meta->slug);
+                }
             });
     }
 }
