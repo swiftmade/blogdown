@@ -5,6 +5,7 @@ namespace Swiftmade\Blogdown\Commands;
 use Swiftmade\Blogdown\Parser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Swiftmade\Blogdown\Support\Meta;
 use Swiftmade\Blogdown\Repositories\MetaRepository;
 
 class Build extends Command
@@ -35,12 +36,21 @@ class Build extends Command
             ->each(function ($path) {
                 $meta = Parser::meta((string)$path);
 
-                if ($meta->isPublished()) {
+                if ($this->shouldPublish($meta)) {
                     $this->repository->put($meta);
                     $this->info('Cached /' . $meta->slug);
                 } else {
                     $this->comment('Draft /' . $meta->slug);
                 }
             });
+    }
+
+    private function shouldPublish(Meta $meta)
+    {
+        if (app()->environment() === 'production') {
+            return $meta->isPublished();
+        }
+        // In development or other modes, don't hide draft articles...
+        return true;
     }
 }
