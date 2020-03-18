@@ -21,7 +21,7 @@ class MetaParser
         $this->open($path);
 
         $this->meta = [
-            'view' => str_replace(
+            'view_name' => str_replace(
                 PostScanner::Extensions,
                 '',
                 pathinfo($path, PATHINFO_BASENAME)

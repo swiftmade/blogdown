@@ -28,7 +28,7 @@ class Post implements ArrayAccess, Arrayable
 
     public function slug()
     {
-        return Str::slug($this->data['view']);
+        return Str::slug($this->data['view_name']);
     }
 
     public function isDraft()
@@ -38,7 +38,7 @@ class Post implements ArrayAccess, Arrayable
 
     public function view()
     {
-        return Config::get('blogdown.blog_folder') . '.' . $this->view;
+        return Config::get('blogdown.blog_folder') . '.' . $this->view_name;
     }
 
     protected function getAttribute($attribute)
