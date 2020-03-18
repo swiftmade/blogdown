@@ -1,8 +1,8 @@
 <?php
-namespace Swiftmade\Blogdown\Support;
+namespace Swiftmade\Blogdown\Models;
 
 use ArrayAccess;
-use Swiftmade\Blogdown\Concerns\HasArrayAccess;
+use Swiftmade\Blogdown\Models\Concerns\HasArrayAccess;
 
 class Author implements ArrayAccess
 {

@@ -1,8 +1,8 @@
 <?php
-namespace Swiftmade\Blogdown\Parsers;
+namespace Swiftmade\Blogdown;
 
 use Exception;
-use Swiftmade\Blogdown\Post\Post;
+use Swiftmade\Blogdown\Models\Post;
 
 class MetaParser
 {
@@ -22,14 +22,14 @@ class MetaParser
         $this->open($path);
 
         $this->meta = [
-            'view' => str_replace('.blade.php', '', pathinfo($path, PATHINFO_BASENAME)),
+            'view' => str_replace(PostScanner::Extensions, '', pathinfo($path, PATHINFO_BASENAME)),
         ];
 
         $line = fgets($this->handle, 1024);
         $length = strlen($line);
 
         if (!(preg_match(self::MetaOpen, $line))) {
-            throw new Exception('Missing meta section in ' . $this->path);
+            throw new Exception('Missing meta section in ' . $path);
         }
 
         // Until the meta section is closed, keep reading
@@ -46,7 +46,9 @@ class MetaParser
         $this->meta['metaLength'] = $length;
         $this->meta['last_modified'] = filemtime($path);
 
-        $this->meta['slug'] = (new Post($this->meta))->slug();
+        $post = new Post($this->meta);
+        $this->meta['slug'] = $post->slug();
+        $this->meta['is_draft'] = $post->isDraft();
 
         $this->close();
         return $this->meta;

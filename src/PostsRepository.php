@@ -1,11 +1,10 @@
 <?php
 namespace Swiftmade\Blogdown;
 
-use Swiftmade\Blogdown\Post\Post;
-use Illuminate\Support\Facades\File;
+use Swiftmade\Blogdown\Models\Post;
 use Illuminate\Support\Facades\Cache;
+use Swiftmade\Blogdown\Support\Posts;
 use Illuminate\Support\Facades\Config;
-use Swiftmade\Blogdown\Parsers\MetaParser;
 
 class PostsRepository
 {
@@ -13,21 +12,11 @@ class PostsRepository
 
     public function all()
     {
-        return collect($this->getIndex())
-            ->map(function ($post) {
+        return new Posts(
+            $this->getIndex()->map(function ($post) {
                 return new Post($post);
             })
-            ->sortByDesc('date');
-    }
-
-    public function byTags(...$tags)
-    {
-        return $this->all()->filter(function ($post) use ($tags) {
-            return count(array_intersect(
-                $post->tags,
-                $tags
-            ));
-        });
+        );
     }
 
     public function find($slug)
@@ -48,7 +37,7 @@ class PostsRepository
 
     protected function cacheTtl()
     {
-        if (!app()->environment('production')) {
+        if (app()->environment('local')) {
             return 0;
         }
         return now()->addMinutes(Config::get('blogdown.index_ttl'));
@@ -56,32 +45,16 @@ class PostsRepository
 
     protected function getIndex()
     {
-        return Cache::remember(self::CacheKey, $this->cacheTtl(), function () {
-            $index = collect(File::files($this->blogFolder()))
-                ->filter(function ($file) {
-                    return pathinfo($file, PATHINFO_EXTENSION) === 'php';
-                })
-                ->map(function ($path) {
-                    return MetaParser::parse($path);
-                });
-
-            $diff = array_diff(
-                $index->pluck('slug')->toArray(),
-                $index->pluck('slug')
-                    ->unique()
-                    ->toArray()
-            );
-
-            if (!empty($diff)) {
-                throw new \Exception('Blogdown duplicate slug: /' . $diff[0]);
-            }
-
-            return $index->keyBy('slug');
+        $index = Cache::remember(self::CacheKey, $this->cacheTtl(), function () {
+            return (new PostScanner)();
         });
-    }
 
-    protected function blogFolder()
-    {
-        return resource_path('views/' . Config::get('blogdown.blog_folder'));
+        if (app()->environment('production')) {
+            return $index->filter(function ($post) {
+                return !$post['is_draft'];
+            });
+        }
+
+        return $index;
     }
 }

@@ -23,23 +23,6 @@ return [
      */
     'date_format' => 'd.m.Y',
 
-    /**
-     * Laravel 6+ uses CommonMark out of the box.
-     * We also utilize the same framework for parsing markdown.
-     * This array is passed to the GithubFlavoredMarkdownConverter object.
-     *
-     * https://github.com/thephpleague/commonmark
-     *
-     */
-    'commonmark_options' => [
-        'html_input' => 'strip',
-        'allow_unsafe_links' => false,
-    ],
-
-    // Register any CommonMark extensions here
-    'commonmark_extensions' => [
-        \League\CommonMark\Extension\GithubFlavoredMarkdownExtension::class,
-    ],
 
     'authors' => [
         /*

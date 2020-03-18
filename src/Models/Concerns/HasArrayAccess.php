@@ -1,5 +1,5 @@
 <?php
-namespace Swiftmade\Blogdown\Concerns;
+namespace Swiftmade\Blogdown\Models\Concerns;
 
 trait HasArrayAccess
 {

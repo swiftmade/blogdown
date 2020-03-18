@@ -1,12 +1,12 @@
 <?php
-namespace Swiftmade\Blogdown\Post;
+namespace Swiftmade\Blogdown\Models;
 
 use ArrayAccess;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Support\Arrayable;
 use Swiftmade\Blogdown\Support\AttributeTypes;
-use Swiftmade\Blogdown\Concerns\HasArrayAccess;
+use Swiftmade\Blogdown\Models\Concerns\HasArrayAccess;
 
 class Post implements ArrayAccess, Arrayable
 {
@@ -29,6 +29,11 @@ class Post implements ArrayAccess, Arrayable
     public function slug()
     {
         return Str::slug($this->data['view']);
+    }
+
+    public function isDraft()
+    {
+        return isset($this->data['draft']) && $this->data['draft'];
     }
 
     public function view()
