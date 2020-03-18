@@ -14,7 +14,7 @@ class PostsRepository
     {
         return new Posts(
             $this->getIndex()->map(function ($post) {
-                return new Post($post);
+                return resolve('blogdown.postModel')($post);
             })
         );
     }
@@ -27,7 +27,7 @@ class PostsRepository
             return null;
         }
 
-        return new Post($index[$slug]);
+        return resolve('blogdown.postModel')($index[$slug]);
     }
 
     public function forget()

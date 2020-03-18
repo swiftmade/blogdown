@@ -26,5 +26,12 @@ class BlogdownProvider extends LaravelServiceProvider
         $this->commands([
             IndexPosts::class
         ]);
+
+        $this->app->singleton('blogdown.postModel', function () {
+            return function ($data) {
+                $class = Config::get('blogdown.post_model');
+                return new $class($data);
+            };
+        });
     }
 }

@@ -23,6 +23,11 @@ return [
      */
     'date_format' => 'd.m.Y',
 
+    /**
+     * Use this to replace default Post model
+     */
+    'post_model' => \Swiftmade\Blogdown\Models\Post::class,
+
 
     'authors' => [
         /*

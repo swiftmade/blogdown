@@ -2,7 +2,6 @@
 namespace Swiftmade\Blogdown;
 
 use Exception;
-use Swiftmade\Blogdown\Models\Post;
 
 class MetaParser
 {
@@ -50,7 +49,7 @@ class MetaParser
         $this->meta['metaLength'] = $length;
         $this->meta['last_modified'] = filemtime($path);
 
-        $post = new Post($this->meta);
+        $post = resolve('blogdown.postModel')($this->meta);
         $this->meta['slug'] = $post->slug();
         $this->meta['is_draft'] = $post->isDraft();
 
