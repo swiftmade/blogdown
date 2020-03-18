@@ -1,14 +1,23 @@
 Laravel Blogdown
 =====================
 
-Build a blog in your Laravel app using Markdown inside blade.
+Add a blog to your Laravel app with only blade and markdown. No database, no cms.
 
 
- your blade files and build a full blog experience.
+## Installation
 
-No migrations. 
+You can install the package via composer:
+
+```bash
+composer require swiftmade/blogdown
+```
 
 
+## Usage
+
+By default, your blog is ready to go at `/blog`.
+
+Just place your blog posts under `resources/views/blog`
 
 ### Awesome Features
 
