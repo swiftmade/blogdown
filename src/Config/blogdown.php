@@ -3,15 +3,20 @@
 return [
 
     /**
+     * In minutes, how frequently should Blogdown scan blog posts for changes?
+     */
+    'index_ttl' => 10,
+
+    /**
      * Set to false to disable /blog and /blog/{slug} routes
      * automatically registered by Blogdown.
      */
     'register_routes' => true,
 
     /**
-     * Path to look for blog posts relative to base_path
+     * Path to look for blog posts relative to your views folder
      */
-    'blog_folder' => 'resources/views/blog',
+    'blog_folder' => 'blog',
 
     /**
      * When parsing the date meta tag, Blogdown will use this format
@@ -19,15 +24,10 @@ return [
     'date_format' => 'd.m.Y',
 
     /**
-     * Modifier pipeline to transform .md files into HTML.
-     * You can completely customize the pipeline by appending
-     * modifiers that implement \Swiftmade\Blogdown\Contracts\ModifierInterface
+     * Use this to replace default Post model
      */
-    'modifiers' => [
-        \Swiftmade\Blogdown\Modifiers\MarkdownToHtml::class,
-        \Swiftmade\Blogdown\Modifiers\TagModifier\AddAttribute::class,
-        // Add your own modifiers..
-    ],
+    'post_model' => \Swiftmade\Blogdown\Models\Post::class,
+
 
     'authors' => [
         /*

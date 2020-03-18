@@ -1,7 +1,14 @@
 Laravel Blogdown
 =====================
 
-Build a blog in your Laravel 5.* site using only Markdown files, no database needed.
+Build a blog in your Laravel app using Markdown inside blade.
+
+
+ your blade files and build a full blog experience.
+
+No migrations. 
+
+
 
 ### Awesome Features
 
