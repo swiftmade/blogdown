@@ -94,7 +94,7 @@ public function slug()
 {
     return Str::slug($this->view_name);
 }
-``` 
+```
 
 If needed, you can override the `Post` model and build a better slug:
 
@@ -103,7 +103,7 @@ public function slug()
 {
     return Str::slug($this->date->format('Y-m-d') . ' ' . $this->title);
 }
-``` 
+```
 
 Don't forget to register your custom `Post` model in `config/blogdown.php`!
 
