@@ -1,8 +1,11 @@
 <?php
 namespace Swiftmade\Blogdown\Providers;
 
+use Swiftmade\Blogdown\Blogdown;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Swiftmade\Blogdown\Commands\Build;
+use Swiftmade\Blogdown\Parsers\CommonMark;
 use Swiftmade\Blogdown\Modifiers\TagModifier\AddAttribute;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Swiftmade\Blogdown\Facades\AddAttribute as AddAttributeFacade;
@@ -34,5 +37,29 @@ class BlogdownProvider extends LaravelServiceProvider
         $this->commands([
             Build::class
         ]);
+    }
+
+    public function boot()
+    {
+        $this->bootMarkdownSupport();
+    }
+
+    protected function bootMarkdownSupport()
+    {
+        if (!Blogdown::$markdownSupport) {
+            return;
+        }
+
+        $this->app->singleton('blogdown.commonMark', function () {
+            return new CommonMark;
+        });
+
+        Blade::directive('markdown', function () {
+            return '<?php echo app(\'blogdown.commonMark\')->toHtml(<<<EOD';
+        });
+
+        Blade::directive('endmarkdown', function () {
+            return "\r\n" . 'EOD' . "\n" . '); ?>';
+        });
     }
 }

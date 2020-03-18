@@ -1,16 +1,22 @@
 <?php
 namespace Swiftmade\Blogdown\Support;
 
-use stdClass;
+use ArrayAccess;
+use Swiftmade\Blogdown\Concerns\HasArrayAccess;
 
-class Author extends stdClass
+class Author implements ArrayAccess
 {
-    public static function fromArray(array $author)
+    use HasArrayAccess;
+
+    protected $data;
+
+    public function __construct(array $data)
     {
-        $instance = new self;
-        foreach ($author as $key => $value) {
-            $instance->$key = $value;
-        }
-        return $instance;
+        $this->data = $data;
+    }
+
+    protected function getAttribute($name)
+    {
+        return $this->data[$name];
     }
 }
