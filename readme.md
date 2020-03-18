@@ -34,7 +34,21 @@ Use blade to compose post content.
 
 Save this under `resource/views/blog/hello-world.blade.php`. You can now access your post at `/blog/hello-world.`
 
-> By default, the post slug is Str::slug($fileName) without the extension. But you can change that if you want.
+## Meta Attributes are Dynamic
+
+Each post must start with a Blade comment block. You can declare as many meta attributes as you want.
+
+```blade
+{{--
+random_attribute: 51231
+--}}
+```
+
+You can access your post's meta attributes like so:
+
+```php
+$post->random_attribute; // 51231
+```
 
 ## Draft vs Published
 
@@ -42,11 +56,11 @@ Let's say you're working on a long post and it's not production ready yet. Just 
 
 ```blade
 {{--
-title: Very Long Post that I'm still working on
-tags: blog, first post
-date: 18.03.2020
+... other attributes
 draft: true
 --}}
+
+... Your awesome content ...
 ```
 
 Since you added the `draft` meta attribute, this post will be hidden in `production` environments.
