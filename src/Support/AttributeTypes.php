@@ -2,6 +2,7 @@
 namespace Swiftmade\Blogdown\Support;
 
 use Illuminate\Support\Carbon;
+use Swiftmade\Blogdown\Models\Author;
 use Illuminate\Support\Facades\Config;
 
 class AttributeTypes
