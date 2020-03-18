@@ -28,7 +28,7 @@ class Post implements ArrayAccess, Arrayable
 
     public function slug()
     {
-        return Str::slug($this->data['view']);
+        return Str::slug($this->data['view_name']);
     }
 
     public function isDraft()

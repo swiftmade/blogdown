@@ -1,7 +1,7 @@
-Laravel Blogdown
-=====================
+Laravel Blogdown 👓
+===================== 
 
-Add a blog to your Laravel app with only blade and markdown. No database, no cms.
+Add a blog to your Laravel app using only blade views and Markdown.
 
 
 ## Installation
@@ -15,23 +15,84 @@ composer require swiftmade/blogdown
 
 ## Usage
 
-By default, your blog is ready to go at `/blog`.
+Out of the box, Blogdown is accessible at `/blog`. 
 
-Just place your blog posts under `resources/views/blog`
+```blade
+{{--
+title: Hello World!
+tags: blog, first post
+date: 18.03.2020
+--}}
+Use blade to compose post content.
 
-### Awesome Features
+@markdown
+**Or even use markdown** if you want.
 
-- 📝 No migrations. Everything lives in .md files and cache.
-- 🧭  SEO-enabled via customizable meta data and permalink support.
-- 🏷 Attach slug, author profile, publish date and more to your posts.
-- 🛳 Ships with views, controllers and routes. Keep it or customize it.
-- 💉 Customizable render engine. Easily add CSS classes to rendered tags.
-- 💻 Compatible with [highlight.js](https://highlightjs.org/) out of the box for syntax highlighted code.
+### Isn't that great?
+@endmarkdown
+```
 
-### Get Started
+Save this under `resource/views/blog/hello-world.blade.php`. You can now access your post at `/blog/hello-world.`
 
-* [Go to documentation page](https://swiftmade.github.io/blogdown/)
-	
+> By default, the post slug is Str::slug($fileName) without the extension. But you can change that if you want.
+
+## Draft vs Published
+
+Let's say you're working on a long post and it's not production ready yet. Just do this:
+
+```blade
+{{--
+title: Very Long Post that I'm still working on
+tags: blog, first post
+date: 18.03.2020
+draft: true
+--}}
+```
+
+Since you added the `draft` meta attribute, this post will be hidden in `production` environments.
+
+## Force Clear Cache
+
+> php artisan blogdown:index
+
+## Customizing Blogdown
+
+You can change most things about Blogdown. To get started, publish the config:
+
+```bash
+php artisan vendor:publish  --provider "Swiftmade\Blogdown\BlogdownProvider"
+```
+
+**Things you can customize**
+- Override views to change how your blog looks
+- Add list of authors to quickly load author meta
+- Format and content of post slugs
+- Enable/disable default routes.
+- Change date format.
+- And probably more...
+
+## Format and content of post slugs
+
+By default, this is how a post's slug is built:
+
+```php
+public function slug()
+{
+    return Str::slug($this->view_name);
+}
+``` 
+
+If needed, you can override the `Post` model and build a better slug:
+
+```php
+public function slug()
+{
+    return Str::slug($this->date->format('Y-m-d') . ' ' . $this->title);
+}
+``` 
+
+Don't forget to register your custom `Post` model in `config/blogdown.php`!
+
 ## Pull Requests Are Welcome
 
 If you want to see more features or report bugs feel free to open issues and send pull requests.
