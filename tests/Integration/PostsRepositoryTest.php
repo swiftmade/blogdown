@@ -14,6 +14,18 @@ class PostsRepositoryTest extends IntegrationTestCase
 
         $repository->all();
         $this->assertEquals(3, $repository->all()->count());
+
+        $this->assertEquals(
+            [
+                'draft',
+                'post-meta',
+                'published2'
+            ],
+            $repository->all()
+                ->pluck('slug')
+                ->values()
+                ->toArray()
+        );
     }
 
     /**
@@ -26,14 +38,14 @@ class PostsRepositoryTest extends IntegrationTestCase
         $this->assertEquals(
             1,
             $repository->all()
-                ->whereContains('keywords', 'blog')
+                ->whereContains('tags', 'blog')
                 ->count()
         );
 
         $this->assertEquals(
             1,
             $repository->all()
-                ->whereContains('keywords', ['blog'])
+                ->whereContains('tags', ['blog'])
                 ->count()
         );
     }

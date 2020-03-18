@@ -9,7 +9,7 @@ class ParserTest extends IntegrationTestCase
      */
     public function it_parses_post_meta()
     {
-        $path = __DIR__ . '/../fixtures/post_meta.md';
+        $path = __DIR__ . '/../fixtures/post_meta.blade.php';
         $meta = MetaParser::parse($path);
 
         $this->assertEquals('post title', $meta['title']);

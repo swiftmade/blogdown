@@ -22,7 +22,11 @@ class MetaParser
         $this->open($path);
 
         $this->meta = [
-            'view' => str_replace(PostScanner::Extensions, '', pathinfo($path, PATHINFO_BASENAME)),
+            'view' => str_replace(
+                PostScanner::Extensions,
+                '',
+                pathinfo($path, PATHINFO_BASENAME)
+            ),
         ];
 
         $line = fgets($this->handle, 1024);
