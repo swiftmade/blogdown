@@ -14,6 +14,8 @@ class BlogdownProvider extends LaravelServiceProvider
             __DIR__ . '/resources/views' => resource_path('views/vendor/blogdown'),
         ]);
 
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'blogdown');
+
         $this->mergeConfigFrom(
             __DIR__ . '/config/blogdown.php',
             'blogdown'

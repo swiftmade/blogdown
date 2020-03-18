@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $post->title }} - My Blog</title>
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow.min.css">
 </head>
 <body>
 
     <div class="container mt-5">
         <h1>{{ $post->title }}</h1>
         <br>
-        <div class="p-5">
-        
+        <div >
+        @include($post->view())
         </div>
         <br>
         <hr class="mt-5">
@@ -33,5 +34,7 @@
         <br>
     </div>
     
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

@@ -16,9 +16,9 @@ class PostsController
     {
         $posts = $this->posts->all()
             ->latest()
-            ->paginate(15);
+            ->paginate(5);
 
-        return view('vendor.blogdown.posts')->with(
+        return view('blogdown::posts')->with(
             compact('posts')
         );
     }
@@ -32,7 +32,7 @@ class PostsController
             ->where('slug', '!=', $post->slug)
             ->take(5);
 
-        return view('vendor.blogdown.post')->with(
+        return view('blogdown::post')->with(
             compact('post', 'others')
         );
     }

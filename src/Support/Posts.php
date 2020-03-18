@@ -2,7 +2,6 @@
 namespace Swiftmade\Blogdown\Support;
 
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Posts extends Collection
@@ -28,13 +27,16 @@ class Posts extends Collection
 
     public function paginate($perPage, $pageName = 'page')
     {
-        $page = Paginator::resolveCurrentPage($pageName);
+        $page = LengthAwarePaginator::resolveCurrentPage($pageName);
 
         return new LengthAwarePaginator(
-            $this->items->forPage($page, $perPage),
-            $this->items->count(),
+            $this->forPage($page, $perPage),
+            $this->count(),
             $perPage,
-            $page
+            $page,
+            [
+                'path' => request()->getUri()
+            ]
         );
     }
 }
