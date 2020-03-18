@@ -38,7 +38,7 @@ class Post implements ArrayAccess, Arrayable
 
     public function view()
     {
-        return Config::get('blogdown.blog_folder') . '.' . $this->view;
+        return Config::get('blogdown.blog_folder') . '.' . $this->view_name;
     }
 
     protected function getAttribute($attribute)
