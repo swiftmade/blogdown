@@ -14,6 +14,8 @@ class IndexPosts extends Command
     {
         $postsRepository->forget();
 
-        dd($postsRepository->all());
+        $count = $postsRepository->all()->count();
+
+        $this->info('Indexed ' . $count . ' posts.');
     }
 }
