@@ -1,9 +1,11 @@
 <?php
+
 namespace Swiftmade\Blogdown;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Swiftmade\Blogdown\Commands\IndexPosts;
+use Swiftmade\Blogdown\Commands\NewPost;
 
 class BlogdownProvider extends LaravelServiceProvider
 {
@@ -26,7 +28,8 @@ class BlogdownProvider extends LaravelServiceProvider
         }
 
         $this->commands([
-            IndexPosts::class
+            IndexPosts::class,
+            NewPost::class,
         ]);
 
         $this->app->singleton('blogdown.postModel', function () {
