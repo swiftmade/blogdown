@@ -17,8 +17,8 @@ class NewPostTest extends IntegrationTestCase
         );
 
         $this->artisan('blog:new')
-            ->expectsQuestion('Title of your new post:', 'Blogdown is Cool!')
-            ->expectsQuestion('Author:', 'ahmet')
+            ->expectsQuestion('Title of your new post', 'Blogdown is Cool!')
+            ->expectsQuestion('Author', 'ahmet')
             ->assertExitCode(0);
 
         // Assert that the file is created

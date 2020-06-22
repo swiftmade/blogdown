@@ -13,9 +13,9 @@ class NewPost extends Command
 
     public function handle()
     {
-        $title = $this->ask('Title of your new post:');
+        $title = $this->ask('Title of your new post');
 
-        $author = $this->askWithCompletion('Author:', array_keys(
+        $author = $this->askWithCompletion('Author', array_keys(
             config('blogdown.authors')
         ));
 
