@@ -36,6 +36,7 @@ class NewPost extends Command
             $this->getMetaAsText($meta)
         );
 
+        $this->info('"' . $title . '" created at ' . $folder . '/' . $file);
         Artisan::call('blog:index');
     }
 
