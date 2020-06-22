@@ -9,13 +9,32 @@ Add a blog to your Laravel app using only blade views and Markdown.
 You can install the package via composer:
 
 ```bash
+# Require it as a dependency
 composer require swiftmade/blogdown
+
+# Publish the config file
+php artisan vendor:publish  --provider "Swiftmade\Blogdown\BlogdownProvider"
 ```
 
+Go to `config/blogdown.php` and add the authors (example included in the file).
 
 ## Usage
 
-Out of the box, Blogdown is accessible at `/blog`. 
+To create your first post, make sure you created your blog folder. (The default is `resources/view/blog`).
+
+Then simply run this command:
+
+```bash
+php artisan blog:new
+```
+
+Follow the instructions, and you'll have your first blog post ready in seconds.
+
+## Anatomy of a post
+
+Each post consists of a meta section (mandatory) and the content. You can use Markdown to enrich your post's format.
+
+To use markdown inside blade, simply invoke `@markdown` / `@endmarkdown`. Or, you can also add `.md` extension before `.blade.php` and skip the markdown calls.
 
 ```blade
 {{--
@@ -32,24 +51,6 @@ Use blade to compose post content.
 @endmarkdown
 ```
 
-Save this under `resource/views/blog/hello-world.blade.php`. You can now access your post at `/blog/hello-world.`
-
-## Meta Attributes are Dynamic
-
-Each post must start with a Blade comment block. You can declare as many meta attributes as you want.
-
-```blade
-{{--
-random_attribute: 51231
---}}
-```
-
-You can access your post's meta attributes like so:
-
-```php
-$post->random_attribute; // 51231
-```
-
 ## Draft vs Published
 
 Let's say you're working on a long post and it's not production ready yet. Just do this:
@@ -64,6 +65,22 @@ draft: true
 ```
 
 Since you added the `draft` meta attribute, this post will be hidden in `production` environments.
+
+## Meta Attributes are Dynamic
+
+You can declare as many meta attributes as you want.
+
+```blade
+{{--
+random_attribute: 51231
+--}}
+```
+
+You can access your post's meta attributes like so:
+
+```php
+$post->random_attribute; // 51231
+```
 
 ## Force Clear Cache
 
