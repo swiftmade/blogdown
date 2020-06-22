@@ -5,7 +5,6 @@ namespace Swiftmade\Blogdown\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
 
 class NewPost extends Command
 {

@@ -13,10 +13,10 @@ You can install the package via composer:
 composer require swiftmade/blogdown
 
 # Publish the config file
-php artisan vendor:publish  --provider "Swiftmade\Blogdown\BlogdownProvider"
+php artisan vendor:publish --provider "Swiftmade\Blogdown\BlogdownProvider"
 ```
 
-Go to `config/blogdown.php` and add the authors (example included in the file).
+Go to `config/blogdown.php` to configure authors (example included in the file).
 
 ## Usage
 
