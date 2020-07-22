@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Models;
 
 use ArrayAccess;
@@ -43,12 +44,14 @@ class Post implements ArrayAccess, Arrayable
 
     protected function getAttribute($attribute)
     {
+        $value = $this->data[$attribute] ?? null;
+
         if (!isset(Post::$casts[$attribute])) {
-            return $this->data[$attribute];
+            return $value;
         }
 
         return AttributeTypes::cast(
-            $this->data[$attribute],
+            $value,
             Post::$casts[$attribute]
         );
     }
