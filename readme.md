@@ -78,7 +78,7 @@ $post->random_attribute; // 51231
 
 ## Force Clear Cache
 
-> php artisan blogdown:index
+> php artisan blog:index
 
 ## Customizing Blogdown
 
