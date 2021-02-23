@@ -14,6 +14,7 @@ abstract class IntegrationTestCase extends TestCase
         $app = require __DIR__ . '/../vendor/laravel/laravel/bootstrap/app.php';
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
         $app->register(\Swiftmade\Blogdown\BlogdownProvider::class);
+
         return $app;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Support;
 
 use Illuminate\Support\Collection;
@@ -13,7 +14,7 @@ class Posts extends Collection
 
     public function whereContains($attribute, $search)
     {
-        if (!is_array($search)) {
+        if (! is_array($search)) {
             $search = [$search];
         }
 
@@ -35,7 +36,7 @@ class Posts extends Collection
             $perPage,
             $page,
             [
-                'path' => request()->getUri()
+                'path' => request()->getUri(),
             ]
         );
     }

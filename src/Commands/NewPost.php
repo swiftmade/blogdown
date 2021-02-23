@@ -48,6 +48,7 @@ class NewPost extends Command
         }
 
         $meta .= '--}}' . PHP_EOL;
+
         return $meta;
     }
 }

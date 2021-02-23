@@ -19,7 +19,7 @@ class PostsRepositoryTest extends IntegrationTestCase
             [
                 'draft',
                 'post-meta',
-                'published2'
+                'published2',
             ],
             $repository->all()
                 ->pluck('slug')

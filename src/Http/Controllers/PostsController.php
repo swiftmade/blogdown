@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Http\Controllers;
 
 use Swiftmade\Blogdown\PostsRepository;

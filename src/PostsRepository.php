@@ -1,7 +1,7 @@
 <?php
+
 namespace Swiftmade\Blogdown;
 
-use Swiftmade\Blogdown\Models\Post;
 use Illuminate\Support\Facades\Cache;
 use Swiftmade\Blogdown\Support\Posts;
 use Illuminate\Support\Facades\Config;
@@ -23,8 +23,8 @@ class PostsRepository
     {
         $index = $this->getIndex();
 
-        if (!isset($index[$slug])) {
-            return null;
+        if (! isset($index[$slug])) {
+            return;
         }
 
         return resolve('blogdown.postModel')($index[$slug]);
@@ -40,6 +40,7 @@ class PostsRepository
         if (app()->environment('local')) {
             return 0;
         }
+
         return now()->addMinutes(Config::get('blogdown.index_ttl'));
     }
 
@@ -51,7 +52,7 @@ class PostsRepository
 
         if (app()->environment('production')) {
             return $index->filter(function ($post) {
-                return !$post['is_draft'];
+                return ! $post['is_draft'];
             });
         }
 

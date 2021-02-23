@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Models;
 
 use ArrayAccess;
