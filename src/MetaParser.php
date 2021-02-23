@@ -9,7 +9,7 @@ class MetaParser
     private $handle;
     private $meta = [];
 
-    const MetaOpen = '/\{\{\-\-\r?\n/';
+    const MetaOpen = '/\{\{\-\-/';
     const MetaClose = '/\-\-\}\}/';
 
     public static function parse($path)
