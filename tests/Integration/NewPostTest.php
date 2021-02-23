@@ -28,12 +28,12 @@ class NewPostTest extends IntegrationTestCase
 
         $contents = file_get_contents($folder . '/blogdown-is-cool.md.blade.php');
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Blogdown is Cool!',
             $contents
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'ahmet',
             $contents
         );

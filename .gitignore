@@ -1,4 +1,10 @@
+# Dependencies
 /vendor
+
+# Cache files
+.php_cs.cache
+.phpunit.result.cache
+
+# IDE / OS related files
 /.idea
 .DS_Store
-.php_cs.cache
