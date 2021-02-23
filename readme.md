@@ -1,10 +1,6 @@
-Laravel Blogdown 👓
-===================== 
+![Blogdown](banner.png)
 
-Add a blog to your Laravel app using only blade views and Markdown.
-
-
-## Installation
+## Install
 
 You can install the package via composer:
 
@@ -18,11 +14,9 @@ php artisan vendor:publish --provider "Swiftmade\Blogdown\BlogdownProvider"
 
 Go to `config/blogdown.php` to configure authors (example included in the file).
 
-## Usage
+## Post generator
 
-To create your first post, make sure you created your blog folder. (The default is `resources/view/blog`).
-
-Then simply run this command:
+Simply run this command to make a new article:
 
 ```bash
 php artisan blog:new
@@ -95,6 +89,7 @@ php artisan vendor:publish  --provider "Swiftmade\Blogdown\BlogdownProvider"
 ```
 
 **Things you can customize**
+
 - Override views to change how your blog looks
 - Add list of authors to quickly load author meta
 - Format and content of post slugs
@@ -130,5 +125,5 @@ If you want to see more features or report bugs feel free to open issues and sen
 
 **Contributors:**
 
-* [@aozisik](https://github.com/aozisik)
-* [@BenSampo](https://github.com/BenSampo)
+- [@aozisik](https://github.com/aozisik)
+- [@BenSampo](https://github.com/BenSampo)

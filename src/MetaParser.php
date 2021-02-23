@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown;
 
 use Exception;
@@ -13,7 +14,7 @@ class MetaParser
 
     public static function parse($path)
     {
-        return (new MetaParser)($path);
+        return (new self)($path);
     }
 
     public function __invoke($path)
@@ -31,7 +32,7 @@ class MetaParser
         $line = fgets($this->handle, 1024);
         $length = strlen($line);
 
-        if (!(preg_match(self::MetaOpen, $line))) {
+        if (! (preg_match(self::MetaOpen, $line))) {
             throw new Exception('Missing meta section in ' . $path);
         }
 
@@ -54,12 +55,13 @@ class MetaParser
         $this->meta['is_draft'] = $post->isDraft();
 
         $this->close();
+
         return $this->meta;
     }
 
     protected function open($path)
     {
-        if (!is_readable($path)) {
+        if (! is_readable($path)) {
             throw new Exception('Post at "' . $path . '" cannot be read.');
         }
 
@@ -80,9 +82,10 @@ class MetaParser
     private function breakMetaLine($line)
     {
         $firstColon = strpos($line, ':');
+
         return array_map('trim', [
             substr($line, 0, $firstColon),
-            substr($line, $firstColon + 1, strlen($line) - $firstColon)
+            substr($line, $firstColon + 1, strlen($line) - $firstColon),
         ]);
     }
 }

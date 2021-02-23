@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown;
 
 use Illuminate\Support\Facades\File;
@@ -37,7 +38,7 @@ class PostScanner
                     ->toArray()
         );
 
-        if (!empty($diff)) {
+        if (! empty($diff)) {
             throw new \Exception('Blogdown duplicate slug: /' . $diff[0]);
         }
     }
@@ -58,6 +59,7 @@ class PostScanner
         if (app()->runningUnitTests()) {
             return __DIR__ . '/../tests/fixtures';
         }
+
         return resource_path('views/' . Config::get('blogdown.blog_folder'));
     }
 }

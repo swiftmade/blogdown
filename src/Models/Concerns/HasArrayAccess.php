@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Models\Concerns;
 
 trait HasArrayAccess
@@ -10,7 +11,7 @@ trait HasArrayAccess
 
     public function offsetExists($offset)
     {
-        return !is_null($this->data[$offset]);
+        return ! is_null($this->data[$offset]);
     }
 
     public function offsetGet($offset)

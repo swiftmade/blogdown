@@ -1,4 +1,5 @@
 <?php
+
 namespace Swiftmade\Blogdown\Support;
 
 use Illuminate\Support\Carbon;

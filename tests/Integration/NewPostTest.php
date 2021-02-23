@@ -1,20 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\File;
+
 class NewPostTest extends IntegrationTestCase
 {
+    protected function tearDown(): void
+    {
+        // Delete the blog folder
+        File::deleteDirectory(resource_path('views/' . config('blogdown.blog_folder')));
+
+        // Tear down the app
+        parent::tearDown();
+    }
+
     /**
      * @test
      */
     public function it_creates_new_post()
     {
         $folder = resource_path('views/' . config('blogdown.blog_folder'));
-
-        // This will create the blog folder, so that we can write to it
-        @mkdir(
-            $folder,
-            0777,
-            true
-        );
 
         $this->artisan('blog:new')
             ->expectsQuestion('Title of your new post', 'Blogdown is Cool!')
@@ -28,12 +32,12 @@ class NewPostTest extends IntegrationTestCase
 
         $contents = file_get_contents($folder . '/blogdown-is-cool.md.blade.php');
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Blogdown is Cool!',
             $contents
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'ahmet',
             $contents
         );

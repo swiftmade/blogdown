@@ -4,6 +4,7 @@ namespace Swiftmade\Blogdown\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 
 class NewPost extends Command
@@ -25,9 +26,13 @@ class NewPost extends Command
             'date' => date(config('blogdown.date_format')),
             'summary' => 'Summary of your post...',
             'tags' => 'tag1, tag2',
+            'draft' => true,
         ];
 
         $folder = resource_path('views/' . config('blogdown.blog_folder'));
+
+        File::ensureDirectoryExists($folder);
+
         $file = Str::slug($title) . '.md.blade.php';
 
         file_put_contents(
@@ -35,7 +40,9 @@ class NewPost extends Command
             $this->getMetaAsText($meta)
         );
 
-        $this->info('"' . $title . '" created at ' . $folder . '/' . $file);
+        $this->info('New post created: "' . $title . '"');
+        $this->comment('Path: ' . $folder . '/' . $file);
+
         Artisan::call('blog:index');
     }
 
@@ -48,6 +55,7 @@ class NewPost extends Command
         }
 
         $meta .= '--}}' . PHP_EOL;
+
         return $meta;
     }
 }

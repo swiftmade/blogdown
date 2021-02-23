@@ -46,13 +46,13 @@ class Post implements ArrayAccess, Arrayable
     {
         $value = $this->data[$attribute] ?? null;
 
-        if (!isset(Post::$casts[$attribute])) {
+        if (! isset(self::$casts[$attribute])) {
             return $value;
         }
 
         return AttributeTypes::cast(
             $value,
-            Post::$casts[$attribute]
+            self::$casts[$attribute]
         );
     }
 }

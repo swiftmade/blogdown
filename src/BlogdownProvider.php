@@ -3,9 +3,9 @@
 namespace Swiftmade\Blogdown;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Swiftmade\Blogdown\Commands\IndexPosts;
 use Swiftmade\Blogdown\Commands\NewPost;
+use Swiftmade\Blogdown\Commands\IndexPosts;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class BlogdownProvider extends LaravelServiceProvider
 {
@@ -35,6 +35,7 @@ class BlogdownProvider extends LaravelServiceProvider
         $this->app->singleton('blogdown.postModel', function () {
             return function ($data) {
                 $class = Config::get('blogdown.post_model');
+
                 return new $class($data);
             };
         });
