@@ -1,5 +1,4 @@
-{{-- title: another published article
-date: 1.2.2019
-tags: keyword --}}
+{{-- title: comment tags on the same line
+url: https://example.com --}}
 # this is an H1
 some text...
