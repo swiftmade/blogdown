@@ -13,11 +13,12 @@ class PostsRepositoryTest extends IntegrationTestCase
         $repository->forget();
 
         $repository->all();
-        $this->assertEquals(3, $repository->all()->count());
+        $this->assertEquals(4, $repository->all()->count());
 
         $this->assertEquals(
             [
                 'draft',
+                'meta-same-line',
                 'post-meta',
                 'published2',
             ],
@@ -61,13 +62,13 @@ class PostsRepositoryTest extends IntegrationTestCase
         config(['blogdown.index_ttl' => 1]);
 
         $repository->all();
-        $this->assertEquals(3, $repository->all()->count());
+        $this->assertEquals(4, $repository->all()->count());
         $this->assertNotEmpty($repository->find('draft'));
 
         app()['env'] = 'production';
 
         $repository->all();
-        $this->assertEquals(2, $repository->all()->count());
+        $this->assertEquals(3, $repository->all()->count());
         $this->assertEmpty($repository->find('draft'));
     }
 }

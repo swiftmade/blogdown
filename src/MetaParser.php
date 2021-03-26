@@ -9,7 +9,7 @@ class MetaParser
     private $handle;
     private $meta = [];
 
-    const MetaOpen = '/\{\{\-\-\r?\n/';
+    const MetaOpen = '/\{\{\-\-/';
     const MetaClose = '/\-\-\}\}/';
 
     public static function parse($path)
@@ -37,14 +37,16 @@ class MetaParser
         }
 
         // Until the meta section is closed, keep reading
-        while ($line = fgets($this->handle, 1024)) {
+        while ($line) {
             $length += strlen($line);
+
+            $this->parseLine($line);
 
             if (preg_match(self::MetaClose, $line)) {
                 break;
             }
 
-            $this->parseLine($line);
+            $line = fgets($this->handle, 1024);
         }
 
         $this->meta['metaLength'] = $length;
@@ -81,6 +83,11 @@ class MetaParser
 
     private function breakMetaLine($line)
     {
+        // Ignore open/close tags
+        $line = preg_replace(self::MetaOpen, '', $line);
+        $line = preg_replace(self::MetaClose, '', $line);
+        $line = trim($line);
+
         $firstColon = strpos($line, ':');
 
         return array_map('trim', [
