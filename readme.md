@@ -1,4 +1,11 @@
-![Blogdown](banner.png)
+# Blogdown
+
+_Add a simple, flat-file markdown blog to your existing Laravel application._
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/swiftmade/blogdown.svg?style=flat-square)](https://packagist.org/packages/swiftmade/blogdown)
+[![Total Downloads](https://img.shields.io/packagist/dt/swiftmade/blogdown.svg?style=flat-square)](https://packagist.org/packages/swiftmade/blogdown)
+![GitHub Actions](https://github.com/swiftmade/blogdown/actions/workflows/main.yml/badge.svg)
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://supportukrainenow.org/)
 
 ## Install
 
