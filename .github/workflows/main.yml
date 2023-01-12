@@ -8,11 +8,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        # Disable testing on windows for now...
+        # os: [ubuntu-latest, windows-latest]
         os: [ubuntu-latest]
-        php: [8.0, 7.4]
-        dependency-version: [prefer-stable]
+        php: [8.0, 8.1]
+        laravel: [8.*, 9.*]
+        stability: [prefer-stable]
 
-    name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -31,7 +34,9 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
