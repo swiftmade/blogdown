@@ -3,7 +3,7 @@
 composer.lock
 
 # Cache files
-.php_cs.cache
+.php-cs-fixer.cache
 .phpunit.result.cache
 
 # IDE / OS related files
