@@ -11,9 +11,14 @@ jobs:
         # Disable testing on windows for now...
         # os: [ubuntu-latest, windows-latest]
         os: [ubuntu-latest]
-        php: [8.0, 8.1]
-        laravel: [8.*, 9.*]
+        php: [8.0, 8.1, 8.2]
+        laravel: [8.*, 9.*, 10.*]
         stability: [prefer-stable]
+        exclude:
+          - laravel: 8.*
+            php: 8.2
+          - laravel: 10.*
+            php: 8.0
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
