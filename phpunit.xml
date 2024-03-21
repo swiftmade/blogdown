@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
->
+<phpunit backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false">
     <testsuites>
         <testsuite name="Package Test Suite">
             <directory suffix=".php">./tests/Integration</directory>
@@ -16,5 +7,7 @@
     </testsuites>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="DATABASE_URL" value="sqlite:///:memory:"/>
     </php>
 </phpunit>
