@@ -1,5 +1,7 @@
 # Blogdown
 
+> **This project is no longer maintained.** This repository has been archived and is no longer accepting issues or pull requests. Feel free to fork if you'd like to continue development.
+
 _Add a simple, flat-file markdown blog to your existing Laravel application._
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/swiftmade/blogdown.svg?style=flat-square)](https://packagist.org/packages/swiftmade/blogdown)
@@ -126,11 +128,7 @@ public function slug()
 
 Don't forget to register your custom `Post` model in `config/blogdown.php`!
 
-## Pull Requests Are Welcome
-
-If you want to see more features or report bugs feel free to open issues and send pull requests.
-
-**Contributors:**
+## Contributors
 
 - [@aozisik](https://github.com/aozisik)
 - [@BenSampo](https://github.com/BenSampo)
